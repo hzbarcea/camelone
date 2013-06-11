@@ -21,12 +21,9 @@ import java.io.File;
 import junit.framework.Assert;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.camel.spi.DataFormat;
 import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.FileUtil;
 import org.junit.Test;
 
 import com.camelone.claimcheck.MessageStore;

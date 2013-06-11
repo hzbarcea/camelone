@@ -47,7 +47,10 @@ public class ReservationBuilder extends RouteBuilder {
 	public void configure() throws Exception {
 		LOG.info("STARTING...");
 		JaxbDataFormat jaxb = new JaxbDataFormat("com.camelone.excalibur.types");
-		
+		jaxb.setCamelContext(getContext());
+		jaxb.start();
+
+
 		from("file:/x1/camelone/excalibur/reservations").routeId("reservations")
 		    .unmarshal(jaxb)
 		    .process(checkinReservation())
