@@ -4,4 +4,4 @@ rm -rf target/camelone/messages/*
 rm -rf target/camelone/checkin/*
 rm -rf target/camelone/arrival/*
 
-rm -rf target/excalibur
+rm -rf /x1/camelone/excalibur/*

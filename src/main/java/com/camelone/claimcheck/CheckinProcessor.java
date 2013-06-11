@@ -36,7 +36,7 @@ public class CheckinProcessor implements Processor {
 	private ExecutorService executor;
 	private Expression destination;
 	private Expression tag;
-	private Expression value;
+	private Expression keep;
 
 	public CheckinProcessor attach(Expression tag) {
 		this.tag = tag;
@@ -48,7 +48,7 @@ public class CheckinProcessor implements Processor {
 	}
 
 	public CheckinProcessor keep(Expression value) {
-		this.value = value;
+		this.keep = value;
 		return this;
 	}
 
@@ -83,7 +83,7 @@ public class CheckinProcessor implements Processor {
 
 		LOG.info("Continue normal flow without 'baggage'");
 		Message out = exchange.getOut();
-		out.setBody(value.evaluate(exchange, Object.class));
+		out.setBody(keep.evaluate(exchange, Object.class));
 	}
 
 	private Endpoint findDestination(Exchange exchange) {

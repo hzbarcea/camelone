@@ -68,7 +68,7 @@ public class CheckoutProcessor implements Processor {
 		MessageStore waiting = carousel ? bayInfo.main : bayInfo.carousel;
 		String tag = exchange.getProperty(ClaimCheck.CLAIMCHECK_TAG_HEADER, String.class);
 		LOG.info("Processing message with tag '{}'", tag);
-		
+
 		if (waiting.containsKey(tag)) {
 			// there may be more, but let's ignore this for now
 			// Let's aggregate the two exchanges, but order matters!
@@ -90,7 +90,7 @@ public class CheckoutProcessor implements Processor {
 			Producer exit = bayInfo.getEndpoint(exchange.getContext()).createProducer();
 			exit.process(resolved);
 		} else {
-			LOG.info("Corresponding exchange for tag '{}' not yet arrived. Send exchange to message store", tag);
+			LOG.info("Corresponding exchange for tag '{}' not yet arrived. Storing...", tag);
 			MessageStore keep = carousel ? bayInfo.carousel : bayInfo.main;
 			keep.put(tag, exchange);
 		}

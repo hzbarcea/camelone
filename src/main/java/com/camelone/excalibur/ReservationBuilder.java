@@ -48,30 +48,30 @@ public class ReservationBuilder extends RouteBuilder {
 		LOG.info("STARTING...");
 		JaxbDataFormat jaxb = new JaxbDataFormat("com.camelone.excalibur.types");
 		
-		from("file:target/excalibur/reservations")
+		from("file:/x1/camelone/excalibur/reservations").routeId("reservations")
 		    .unmarshal(jaxb)
 		    .process(checkinReservation())
 		    .process(generateRequests())
 		    .recipientList(property(REQUESTS_RECIPIENTS).tokenize(","));
-        from("direct:complete")
+        from("direct:complete").routeId("complete")
             .process(checkoutCompletion(jaxb));
-        from("direct:exit")
+        from("direct:exit").routeId("exit")
             .marshal(jaxb)
-            .to("file:target/excalibur/completed");
+            .to("file:/x1/camelone/excalibur/completed");
 
 		// Mock routes sending actual requests asynchronously to make reservations
-        from("seda:flight")
+        from("seda:flight").routeId("process-flights")
             .marshal(jaxb)
             .to("log:com.camelone.excalibur.FLIGHT");
-        from("seda:hotel")
+        from("seda:hotel").routeId("process-hotels")
             .marshal(jaxb)
             .to("log:com.camelone.excalibur.HOTEL");
-        from("seda:car")
+        from("seda:car").routeId("process-cars")
             .marshal(jaxb)
             .to("log:com.camelone.excalibur.CAR");
 
         // Route(s) receiving replies asynchronously about reservations made
-		from("file:target/excalibur/reply")
+		from("file:/x1/camelone/excalibur/reply").routeId("replies")
 		    .unmarshal(jaxb)
             .setProperty(ClaimCheck.CLAIMCHECK_TAG_HEADER, reservationId())
 		    .to("seda:reply");
@@ -80,7 +80,7 @@ public class ReservationBuilder extends RouteBuilder {
         // test routes
 		from("direct:reservations")
 		    .marshal(jaxb)
-		    .to("file:target/excalibur/reservations");
+		    .to("file:/x1/camelone/excalibur/reservations");
 	}
 
 	private Processor checkinReservation() {
@@ -100,7 +100,7 @@ public class ReservationBuilder extends RouteBuilder {
 		
 		// Let's use a more persistent message store
 		BayInfo bay = ClaimCheck.getBay(DESTINATION_BAY);
-		File storageBay = new File("target/excalibur/store/");
+		File storageBay = new File("/x1/camelone/excalibur/store/");
 		File main = new File(storageBay, "main");
 		File carousel = new File(storageBay, "carousel");
 		main.mkdirs();
@@ -140,6 +140,7 @@ public class ReservationBuilder extends RouteBuilder {
                 if (oldExchange == null || newExchange == null) {
                     throw new RuntimeCamelException("Can only aggregate when claimcheck exchanges are paired");
                 }
+
                 Reservation reservation = oldExchange.getIn().getBody(Reservation.class);
                 Request reply = newExchange.getIn().getBody(Request.class);
 

@@ -46,7 +46,7 @@ public class ReservationProcessTest extends CamelTestSupport {
 		request.setName(name);
 		request.setType("flight");
 		request.setValue("ACME Airlines");
-		template.sendBody("file:target/excalibur/reply", request);
+		template.sendBody("file:/x1/camelone/excalibur/reply", request);
 		Thread.sleep(1000);
 
 		request = new Request();
@@ -54,7 +54,7 @@ public class ReservationProcessTest extends CamelTestSupport {
 		request.setName(name);
 		request.setType("hotel");
 		request.setValue("Hilton");
-		template.sendBody("file:target/excalibur/reply", request);
+		template.sendBody("file:/x1/camelone/excalibur/reply", request);
 
 		Thread.sleep(5000);
 	}
