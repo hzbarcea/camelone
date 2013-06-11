@@ -82,7 +82,7 @@ public class CheckoutProcessor implements Processor {
 			// check belongings, anything left to do?
 			if (bayInfo.check != null && !bayInfo.check.matches(resolved)) {
 				// not done, wait for more 'baggage'
-				waiting.put(tag, resolved);
+				bayInfo.main.put(tag, resolved);
 				return;
 			}
 			// proceed to exit

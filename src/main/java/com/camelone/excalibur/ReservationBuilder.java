@@ -106,12 +106,12 @@ public class ReservationBuilder extends RouteBuilder {
 		main.mkdirs();
 		carousel.mkdirs();
 		bay.main = new FileMessageStore(main, df, getContext(), excaliburIdReader());
-		bay.carousel = new FileMessageStore(main, df, getContext(), excaliburIdReader());
+		bay.carousel = new FileMessageStore(carousel, df, getContext(), excaliburIdReader());
 
 		return completionHandler;
 	}
 	
-	private Expression excaliburIdReader() {
+	public static Expression excaliburIdReader() {
 		return new Expression() {
 			@SuppressWarnings("unchecked")
 			public <T> T evaluate(Exchange exchange, Class<T> type) {
