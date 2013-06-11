@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<reservation xmlns="http://camelone.com/excalibur">
+    <id>co2013-101</id>
+    <name>Hadrian</name>
+    <origin>RDU</origin>
+    <destination>BOS</destination>
+    <request>flight,hotel</request>
+</reservation>
+

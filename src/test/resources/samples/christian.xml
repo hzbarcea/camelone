@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<reservation xmlns="http://camelone.com/excalibur">
+    <id>co2013-102</id>
+    <name>Christian</name>
+    <origin>FRA</origin>
+    <destination>BOS</destination>
+    <request>flight,hotel,car</request>
+</reservation>
+
